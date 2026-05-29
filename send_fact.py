@@ -27,8 +27,9 @@ def send_telegram(text, token, chat_id):
         "parse_mode": "HTML"
     }
     response = requests.post(url, json=payload)
+    print(f"Статус: {response.status_code}")
+    print(f"Ответ: {response.text}")
     response.raise_for_status()
-    print(f"Отправлено: {response.status_code}")
 
 if __name__ == "__main__":
     token = os.environ["TELEGRAM_BOT_TOKEN"]
