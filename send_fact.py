@@ -13,9 +13,9 @@ def pick_fact(facts):
 
 def format_message(fact):
     return (
-        f"📌 *Факт дня*\n"
+        f"📌 <b>Факт дня</b>\n"
         f"{fact['fact']}\n\n"
-        f"💭 _Вопрос для размышления: {fact['question']}_\n"
+        f"💭 <i>Вопрос для размышления: {fact['question']}</i>\n"
         f"🏷️ Область: {fact['category']}"
     )
 
@@ -24,7 +24,7 @@ def send_telegram(text, token, chat_id):
     payload = {
         "chat_id": chat_id,
         "text": text,
-        "parse_mode": "Markdown"
+        "parse_mode": "HTML"
     }
     response = requests.post(url, json=payload)
     response.raise_for_status()
