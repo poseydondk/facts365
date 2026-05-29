@@ -1,0 +1,28 @@
+name: Daily Fact
+
+on:
+  schedule:
+    - cron: "0 7 * * *"  # каждый день в 10:00 по Москве (UTC+3)
+  workflow_dispatch:       # ручной запуск для теста
+
+jobs:
+  send-fact:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Send daily fact
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python send_fact.py
